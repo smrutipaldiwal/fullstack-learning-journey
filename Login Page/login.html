@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "login.css">
+    </head>
+    <body>
+        <div class="login-container">
+            <form>
+                <h1> Login </h1>
+            
+                <div class="input-group">
+                    <label for="email"> Email: </label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="password-container">
+                        <label for="password"> Password: </label>
+                        <input type="password" id="password" minlength=6 name="password" placeholder="Enter your password" required>
+                        <i class="fa fa-eye" id="togglePassword"></i>
+                    </div>
+                </div>
+
+            <button type="submit"> Login </button>
+
+            <div class="links">
+                <a href="forgot-password.html"> Forgot Password? </a>
+                <p> Don't have an account? <a href="C:\Users\smrut\OneDrive\Desktop\My Project\Register\register.html"> Create Account </a> </p>
+            </div>
+        </form>
+        <script src="login.js"> </script>
+    </body>
+</html>

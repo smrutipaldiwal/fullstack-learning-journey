@@ -1,0 +1,33 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.password-container {
+    position: relative;
+    width: fit-content;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 100px;
+    top: 100%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

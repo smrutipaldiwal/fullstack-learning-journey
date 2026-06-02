@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel = "stylesheet" href = "tasks.css">
         <title> Task Manager </title>
     </head>
     <body>
+        <div class="dashboard"> 
+        <!-- Dashboard Metrics Counter -->
+        <div class="counter-cards">
+            <div class="card">
+                <h3> Total Tasks </h3>
+                <p id="total-count" class="total"> 0 </p>
+            </div>
+            <div class="card">
+                <h3> Completed Tasks </h3>
+                <p id="completed-count" class="completed"> 0 </p>
+            </div>
+            <div class="card">
+                <h3> Pending Tasks </h3>
+                <p id="pending-count" class="pending"> 0 </p>
+            </div>
+        </div>
+        
         <div class="task-container">
             <h1> My Tasks </h1>
 
             <!-- Input Section-->
-            <div class="task-form">
+             <form id="task-form" class="task-form">
                 <input type="text" id="task-input" placeholder="Add a new task...">
-                <button id="add-btn"> Add Task </button>
-            </div>
+                <button type="submit" id="add-btn"> Add Task </button>
+            </form>
 
             <!-- Dynamic task list-->
             <ul id="task-list"> </ul>

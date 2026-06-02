@@ -1,53 +1,67 @@
+// Array holding internal task states
+let tasks = [];
+
 const taskInput = document.getElementById('task-input');
 const addBtn = document.getElementById('add-btn');
 const taskList = document.getElementById('task-list');
+const taskForm = document.getElementById('task-form');
 
-//Trigger action on button click
-addBtn.addEventListener('click', addTask);
+const totalCountE1 = document.getElementById('total-count');
+const completedCountE1 = document.getElementById('completed-count');
+const pendingCountE1 = document.getElementById('pending-count');
 
-//Trigger action on enter key press
-taskInput.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        addTask();
-    }
+taskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const text = taskInput.value.trim();
+    if(!text) return;
+
+    tasks.push({id: Date.now(), text: text, completed: false});
+    taskInput.value = '';
+
+    render();
 });
 
-function addTask() {
-    const taskText = taskInput.value.trim();
+// Primary Render Engine
+function render() {
+    taskList.innerHTML = '';
 
-    // Prevent submission of empty fields
-    if (taskText === '') {
-        alert('Please enter a task!');
-        return;
-    }
+    // Counters initialization
+    let total = tasks.length;
+    let pending = 0;
+    let completed = 0;
 
-    // Generate explicit list item wrapper
-    const li = document.createElement('li');
+    tasks.forEach(task => {
+        if (task.completed) completed++;
+        else pending++;
 
-    // Create container for task text
-    const textSpan = document.createElement('span');
-    textSpan.textContent = taskText;
-    li.appendChild(textSpan);
+        // Node creation
+        const li = document.createElement('li');
+        li.className = `task-item ${task.completed ? 'done' : ''}`;
 
-    // Create click interaction to cross off items
-    textSpan.addEventListener('click', function() {
-        li.classList.toggle('completed');
-    });
+        li.innerHTML = `
+            <span>${task.text}</span>
+            <div class="task-buttons">
+                <button class="complete-btn" onclick="toggleTask(${task.id})">✔</button>
+                <button class="delete-btn" onclick="deleteTask(${task.id})">✖</button>
+            </div>
+        `;
+        taskList.appendChild(li);   
+        });
 
-    // Generate removal button
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.className = 'delete-btn';
-    
-    // Create click interaction to delete item
-    deleteBtn.addEventListener('click', function() {
-        taskList.removeChild(li);
-    });
-
-    // Append delete button to row, then row to container list
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
-
-    // Wipe previous input field clean
-    taskInput.value = '';
+        // Update Counter Elements
+        totalCountE1.textContent = total;
+        completedCountE1.textContent = completed;
+        pendingCountE1.textContent = pending;
 }
+
+// Action Handlers
+window.toggleTask = function(id) {
+    tasks = tasks.map(t => t.id === id ? {...t, completed: !t.completed} : t);
+    render();
+};
+
+window.deleteTask = function(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    render();
+};

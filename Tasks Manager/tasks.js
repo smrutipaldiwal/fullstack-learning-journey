@@ -66,6 +66,7 @@ function render() {
             <span>${task.text}</span>
             <div class="task-buttons">
                 <button class="complete-btn" onclick="toggleTask(${task.id})">✔</button>
+                <button class="edit-btn" onclick="editTask(${task.id})">📝</button>
                 <button class="delete-btn" onclick="deleteTask(${task.id})">✖</button>
             </div>
         `;
@@ -90,5 +91,25 @@ window.deleteTask = function(id) {
     saveToLocalStorage();
     render();
 };
+
+window.editTask = function(id) {
+    const task = tasks.find(t => t.id === id);
+
+    const newText = prompt("Edit task:", task.text);
+
+    if (newText === null) return;
+
+    if (newText.trim() === "") {
+        alert("Task cannot be empty.");
+        return;
+    }
+
+    if (newText.trim() === task.text)
+    return;
+
+    task.text = newText.trim();
+    saveToLocalStorage(); 
+    render();
+};  
 
 render();

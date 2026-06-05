@@ -97,12 +97,19 @@ h1 {
     margin-bottom: 20px;
 }
 
-#task-input {
+#task-input,
+#category {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+}
+
+#category {
+    max-width: 120px;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 #add-btn {
@@ -138,6 +145,28 @@ h1 {
 
 .task-item.done span {
     text-decoration: line-through;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.category-badge {
+    padding: 3px 8px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.task-item.done .category-badge {
+    text-decoration: none;
 }
 
 .task-buttons button {

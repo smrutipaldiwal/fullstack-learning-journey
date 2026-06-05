@@ -4,6 +4,7 @@ const addBtn = document.getElementById('add-btn');
 const taskList = document.getElementById('task-list');
 const taskForm = document.getElementById('task-form');
 const searchInput = document.getElementById('taskSearch');
+const categorySelect = document.getElementById('category');
 
 const totalCountE1 = document.getElementById('total-count');
 const completedCountE1 = document.getElementById('completed-count');
@@ -28,7 +29,12 @@ taskForm.addEventListener('submit', (e) => {
     const text = taskInput.value.trim();
     if(!text) return;
 
-    tasks.push({id: Date.now(), text: text, completed: false});
+    tasks.push({
+        id: Date.now(),
+        text: text,
+        category: categorySelect.value,
+        completed: false
+    });
     saveToLocalStorage();
     render();
     taskInput.value = '';    
@@ -46,7 +52,8 @@ function render() {
     let completed = 0;
 
     const filteredTasks = tasks.filter(task => 
-        task.text.toLowerCase().includes(searchText)
+        task.text.toLowerCase().includes(searchText) ||
+        (task.category || 'Personal').toLowerCase().includes(searchText)
     );
 
     if (filteredTasks.length === 0) {
@@ -63,7 +70,10 @@ function render() {
         li.className = `task-item ${task.completed ? 'done' : ''}`;
 
         li.innerHTML = `
-            <span>${task.text}</span>
+            <div class="task-content">
+                <span>${task.text}</span>
+                <span class="category-badge">${task.category || 'Personal'}</span>
+            </div>
             <div class="task-buttons">
                 <button class="complete-btn" onclick="toggleTask(${task.id})">✔</button>
                 <button class="edit-btn" onclick="editTask(${task.id})">📝</button>

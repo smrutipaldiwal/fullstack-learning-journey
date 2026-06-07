@@ -13,12 +13,35 @@ let user = JSON.parse(localStorage.getItem("user")) || {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    displayUserProfile(user);
+        displayUserProfile(user);
+
+        const savedImage = localStorage.getItem("profilePicture");
+
+        if(savedImage) {
+            document.getElementById("profile-picture").src = savedImage;
+        }
 });
 
-const button = document.getElementById("edit-profile-btn");
+const fileInput = document.getElementById("profile-pic-input");
 
-button.addEventListener("click", () => {
+fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+
+        if(!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            document.getElementById("profile-picture").src = e.target.result;
+
+            localStorage.setItem("profilePicture", e.target.result);
+        };
+        reader.readAsDataURL(file);
+});
+
+const editButton = document.getElementById("edit-profile-btn");
+
+editButton.addEventListener("click", () => {
     const newName = prompt("Enter new name:", user.name);
     const newEmail = prompt("Enter new email:", user.email);
     const newRole = prompt("Enter new role:", user.role);

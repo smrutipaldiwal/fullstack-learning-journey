@@ -56,5 +56,3 @@ function showError() {
     weatherInfo.classList.add("hidden");
     errorMessage.classList.remove("hidden");
 }
-
-
